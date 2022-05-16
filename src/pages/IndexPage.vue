@@ -1,50 +1,21 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useStore } from 'src/store';
+
+const $store = useStore();
+const isLogin = computed(() => $store.getters['settings/isLogin']);
+function login(): void {
+  $store.dispatch('settings/login');
+}
+function logout(): void {
+  $store.dispatch('settings/logout');
+}
+</script>
+
 <template>
   <q-page class="row items-center justify-evenly">
-    <div style="background: black" data-cy="landing-wrapper">yes</div>
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
+    <div class="">{{ isLogin }}</div>
+    <q-btn icon="login" @click="login" />
+    <q-btn icon="logout" @click="logout" />
   </q-page>
 </template>
-
-<script lang="ts">
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
-import { defineComponent, ref } from 'vue';
-
-export default defineComponent({
-  name: 'IndexPage',
-  components: { ExampleComponent },
-  setup() {
-    const todos = ref<Todo[]>([
-      {
-        id: 1,
-        content: 'ct1',
-      },
-      {
-        id: 2,
-        content: 'ct2',
-      },
-      {
-        id: 3,
-        content: 'ct3',
-      },
-      {
-        id: 4,
-        content: 'ct4',
-      },
-      {
-        id: 5,
-        content: 'ct5',
-      },
-    ]);
-    const meta = ref<Meta>({
-      totalCount: 1200,
-    });
-    return { todos, meta };
-  },
-});
-</script>
