@@ -4,9 +4,15 @@ import {
   createRouter,
   createWebHashHistory,
   createWebHistory,
+  NavigationGuardNext,
+  RouteLocationNormalized,
 } from 'vue-router';
 import { StateInterface } from '../store';
 import routes from './routes';
+import middlewarePipeline from './middlewarePipeline';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { defineStore } from 'pinia';
 
 /*
  * If not building with SSR mode, you can
@@ -17,7 +23,7 @@ import routes from './routes';
  * with the Router instance.
  */
 
-export default route<StateInterface>(function (/* { store, ssrContext } */) {
+export default route<StateInterface>(function ({ store }) {
   const createHistory = process.env.SERVER
     ? createMemoryHistory
     : process.env.VUE_ROUTER_MODE === 'history'
@@ -35,6 +41,30 @@ export default route<StateInterface>(function (/* { store, ssrContext } */) {
       process.env.MODE === 'ssr' ? void 0 : process.env.VUE_ROUTER_BASE
     ),
   });
-
+  Router.beforeEach((to, from, next) => {
+    if (!to.meta.middleware) {
+      return next();
+    }
+    const middleware = to.meta.middleware;
+    const context: contextType = {
+      to,
+      from,
+      next,
+      store,
+    };
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return middleware[0]({
+      ...context,
+      next: middlewarePipeline(context, middleware, 1),
+    });
+  });
   return Router;
 });
+
+type contextType = {
+  to: RouteLocationNormalized;
+  from: RouteLocationNormalized;
+  next: NavigationGuardNext;
+  store: defineStore;
+};
