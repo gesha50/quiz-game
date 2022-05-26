@@ -1,15 +1,9 @@
 {
   "@quasar/testing-unit-jest": {
     "babel": "babelrc",
-    "options": [
-      "scripts",
-      "typescript"
-    ]
+    "options": ["scripts", "typescript"]
   },
   "@quasar/testing-e2e-cypress": {
-    "options": [
-      "scripts",
-      "typescript"
-    ]
+    "options": ["scripts", "typescript"]
   }
 }
