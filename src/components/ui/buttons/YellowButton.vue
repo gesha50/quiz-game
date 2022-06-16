@@ -1,5 +1,6 @@
 <template>
   <q-btn
+    to="/create"
     class="q-px-lg customBtnText"
     color="yellow-9"
     rounded

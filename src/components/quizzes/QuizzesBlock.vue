@@ -1,12 +1,10 @@
 <template>
   <div class="QuizzesBlock q-pa-xl column">
     <div class="QuizzesBlock__text row justify-center q-mb-xl">
-      <div class="">
-        <div class="QuizzesBlock__header text-center q-mb-lg">jnkhbgv</div>
-        <div class="QuizzesBlock__description text-center">
-          hbjgvkjnkjnjnk kbhjjghv jkn
-        </div>
-      </div>
+      <standard-text-center
+        :header="textQuizBlock.header"
+        :description="textQuizBlock.description"
+      ></standard-text-center>
     </div>
     <div class="QuizzesBlock__list flex justify-around wrap q-mb-xl">
       <quizzes-card
@@ -31,8 +29,17 @@
 <script setup lang="ts">
 import QuizzesCard from './QuizzesCard.vue';
 import { reactive } from 'vue';
+import StandardTextCenter from '../text/StandardTextCenter.vue';
+import {
+  textQuizBlock as textQuizBlockType,
+  quizzes as quizzesType,
+} from './models';
 
-const quizzes = reactive([
+const textQuizBlock = reactive<textQuizBlockType>({
+  header: 'News & Case Studies',
+  description: 'We specialize in a wide array of marketing fields',
+});
+const quizzes = reactive<quizzesType[]>([
   {
     id: 1,
     img: '',
@@ -55,15 +62,7 @@ const quizzes = reactive([
 </script>
 
 <style lang="scss" scoped>
-@import '../../../css/app';
-
 .QuizzesBlock {
   background: #e5d8fa;
-  &__header {
-    @include header;
-  }
-  &__description {
-    @include description;
-  }
 }
 </style>

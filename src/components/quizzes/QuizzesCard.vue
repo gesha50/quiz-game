@@ -28,7 +28,7 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import '../../../css/app';
+@import '../../css/app';
 .QuizzesCard {
   &__card {
     width: 100%;

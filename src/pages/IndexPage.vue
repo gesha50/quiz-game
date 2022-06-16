@@ -3,7 +3,7 @@ import AppFooter from 'src/components/footer/AppFooter.vue';
 import FaceBlock from 'components/index/face-block/FaceBlock.vue';
 import EffectiveSection from 'components/index/effective-section/EffectiveSection.vue';
 import PlusesSection from 'src/components/index/PlusesSection.vue';
-import QuizzesBlock from 'components/index/quizzes/QuizzesBlock.vue';
+import QuizzesBlock from 'components/quizzes/QuizzesBlock.vue';
 </script>
 
 <template>
