@@ -42,11 +42,6 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/QuizPage.vue'),
       },
       {
-        path: 'quizzes/:link/start',
-        name: 'QuizStart',
-        component: () => import('pages/QuizStartPage.vue'),
-      },
-      {
         path: 'quizzes/:link/play',
         name: 'QuizPlay',
         component: () => import('pages/QuizPlayPage.vue'),
@@ -76,6 +71,16 @@ const routes: RouteRecordRaw[] = [
         path: 'quiz/:link',
         name: 'CreateQuizUnique',
         component: () => import('pages/CreateQuizUniquePage.vue'),
+      },
+      {
+        path: 'quiz/:link/start-screen',
+        name: 'CreateQuizStartScreen',
+        component: () => import('pages/CreateQuizStartScreenPage.vue'),
+      },
+      {
+        path: 'quiz/:link/settings',
+        name: 'CreateQuizSettings',
+        component: () => import('pages/CreateQuizSettingsPage.vue'),
       },
     ],
   },

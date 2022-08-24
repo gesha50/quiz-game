@@ -55,6 +55,9 @@ module.exports = configure(function (ctx) {
         API: ctx.dev
           ? 'http://127.0.0.1:8000/api/'
           : 'http://185.26.120.173:7777/api-test.ru/api/',
+        URL: ctx.dev
+          ? 'http://127.0.0.1:8000'
+          : 'http://185.26.120.173:7777/api-test.ru',
       },
       vueRouterMode: 'hash', // available values: 'hash', 'history'
 
@@ -104,7 +107,7 @@ module.exports = configure(function (ctx) {
       // directives: [],
 
       // Quasar plugins
-      plugins: [],
+      plugins: ['LocalStorage'],
     },
 
     // animations: 'all', // --- includes all animations
@@ -193,6 +196,19 @@ module.exports = configure(function (ctx) {
     electron: {
       bundler: 'packager', // 'packager' or 'builder'
 
+      inspectPort: 5858,
+
+      // New!
+      extendElectronMainConf(cfg) {
+        // do something with Esbuild config
+        // for the Electron Main thread
+      },
+
+      // New!
+      extendElectronPreloadConf(cfg) {
+        // do something with Esbuild config
+        // for the Electron Preload thread
+      },
       packager: {
         // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
         // OS X / Mac App Store
@@ -203,7 +219,10 @@ module.exports = configure(function (ctx) {
         // Windows only
         // win32metadata: { ... }
       },
-
+      sourceFiles: {
+        electronMain: 'src-electron/electron-main.js',
+        electronPreload: 'src-electron/electron-preload.js',
+      },
       builder: {
         // https://www.electron.build/configuration/configuration
 

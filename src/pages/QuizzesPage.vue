@@ -21,33 +21,21 @@
 
 <script setup lang="ts">
 import StandardTextCenter from '../components/text/StandardTextCenter.vue';
-import {
-  textQuizBlock as textQuizBlockType,
-  quizzes as quizzesType,
-} from '../components/quizzes/models';
-import { reactive } from 'vue';
+import { textQuizBlock as textQuizBlockType } from '../components/quizzes/models';
+import { reactive, ref } from 'vue';
 import QuizzesCard from '../components/quizzes/QuizzesCard.vue';
+import { useStore } from 'src/store';
+import { getUserQuizzes } from 'src/services/quiz/get';
+const store = useStore();
+const quizzes = ref([]);
 
-const quizzes = reactive<quizzesType[]>([
-  {
-    id: 1,
-    img: '',
-    title: 'test 1',
-    preview: 'jhbhbjhjbfve evfvfe evfr evtev etvg',
-  },
-  {
-    id: 2,
-    img: '',
-    title: 'test 2',
-    preview: 'jhbhbjhjbfve evfvfe evfr evtev etvg',
-  },
-  {
-    id: 3,
-    img: '',
-    title: 'test 3',
-    preview: 'jhbhbjhjbfve evfvfe evfr evtev etvg',
-  },
-]);
+async function getQuizzes() {
+  const { data } = await getUserQuizzes();
+  await store.dispatch('quiz/setQuizzes', data.data);
+  quizzes.value = data.data;
+}
+getQuizzes();
+
 const textQuizBlock = reactive<textQuizBlockType>({
   header: 'News & Case Studies',
   description: 'We specialize in a wide array of marketing fields',

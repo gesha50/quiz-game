@@ -7,18 +7,13 @@
       </q-toolbar-title>
       <q-tabs>
         <q-route-tab :to="{ name: 'Quizzes' }" label="quizzes" />
-        <q-route-tab
-          v-if="isLogin"
-          :to="{ name: 'CreateQuiz' }"
-          label="Create"
-        />
         <q-route-tab v-if="!isLogin" :to="{ name: 'Login' }" icon="login" />
         <q-route-tab v-if="!isLogin" :to="{ name: 'Register' }" icon="person" />
         <q-route-tab v-if="isLogin" :to="{ name: 'Cabinet' }" label="Cabinet" />
         <q-tab v-if="isLogin" icon="logout" @click="logout" />
       </q-tabs>
       <q-btn
-        v-if="router.currentRoute.value.name === 'CreateQuizUnique'"
+        v-if="router.currentRoute.value.fullPath.includes('create')"
         dense
         flat
         round

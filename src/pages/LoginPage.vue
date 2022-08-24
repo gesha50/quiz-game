@@ -39,8 +39,8 @@ const user: userType = reactive({
 async function login() {
   try {
     const { data } = await useLogin(user);
-    console.log(data);
     await $store.dispatch('settings/login', data);
+    window.location.reload();
     await router.push('/cabinet');
   } catch (e) {
     console.log(e);
