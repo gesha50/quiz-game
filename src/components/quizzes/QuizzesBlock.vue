@@ -32,12 +32,12 @@ import { reactive, ref } from 'vue';
 import StandardTextCenter from '../text/StandardTextCenter.vue';
 import { textQuizBlock as textQuizBlockType } from './models';
 import { useStore } from 'src/store';
-import { getUserQuizzes } from 'src/services/quiz/get';
+import { useGetQuizzes } from 'src/services/quiz/get';
 const store = useStore();
 const quizzes = ref([]);
 
 async function getQuizzes() {
-  const { data } = await getUserQuizzes();
+  const { data } = await useGetQuizzes();
   await store.dispatch('quiz/setQuizzes', data.data);
   quizzes.value = data.data;
 }

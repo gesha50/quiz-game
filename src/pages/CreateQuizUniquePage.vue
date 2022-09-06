@@ -40,7 +40,7 @@
           :name="question.id"
         >
           <div class="column full-height content-center">
-            <div class="col-2 full-width">
+            <div class="col-1 full-width">
               <q-input
                 label="Question..."
                 class="full-width q-mb-md"
@@ -118,7 +118,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-2 flex justify-between">
+            <div class="col-1 flex justify-between">
               <q-input
                 filled
                 :model-value="question.bonus"
@@ -138,6 +138,13 @@
                 @blur="
                   sendToServerQuestionTime($event.target.value, question.id)
                 "
+              />
+            </div>
+            <div class="col-1">
+              <q-btn
+                @click="deleteQuestion(question.id)"
+                color="red"
+                label="delete question"
               />
             </div>
           </div>
@@ -163,7 +170,10 @@ import {
   useUpdateQuestionTime,
   useUpdateQuestionTitle,
 } from 'src/services/quiz/edit';
-import { useDeleteQuestionImage } from 'src/services/quiz/delete';
+import {
+  useDeleteQuestionImage,
+  useDeleteQuestion,
+} from 'src/services/quiz/delete';
 
 const store = useStore();
 const route = useRoute();
@@ -177,14 +187,18 @@ const activeTab = ref(quiz.value.questions[0].id);
 
 async function onFileChange(e: InputFileEvent, id: number) {
   const file = e.target.files[0];
-  // const url = URL.createObjectURL(file);
-  // await store.dispatch('quiz/updateQuestionImageFile', [id, file, url, qid]);
-  //
   const image = new FormData();
   image.append('image', file);
   await useUpdateQuestionImage(id, image);
   await getQuizzes();
 }
+
+async function deleteQuestion(id: number) {
+  await useDeleteQuestion(id);
+  await getQuizzes();
+  activeTab.value = quiz.value.questions[0].id;
+}
+
 async function deleteImage(id: number, qid: number): Promise<void> {
   await store.dispatch('quiz/deleteImage', [id, qid]);
   await useDeleteQuestionImage(qid);
@@ -260,14 +274,14 @@ async function sendToServerQuestionTime(val: string, id: number) {
 
 async function addQuestion() {
   let QuestionFormData = new FormData();
-  QuestionFormData.append('title', 'question');
+  QuestionFormData.append('title', '');
   QuestionFormData.append('description', '');
   QuestionFormData.append('quiz_id', quiz.value.id);
-  QuestionFormData.append('bonus', 0);
-  QuestionFormData.append('time_to_answer', '00:00:00');
+  QuestionFormData.append('bonus', 100);
+  QuestionFormData.append('time_to_answer', '00:01:00');
   let { data } = await useMakeQuestion(QuestionFormData);
   let AnswerFormData = new FormData();
-  AnswerFormData.append('title', '-');
+  AnswerFormData.append('title', '');
   AnswerFormData.append('is_correct', 0);
   AnswerFormData.append('question_id', data.data[0].id);
   for (let i = 0; i < 4; i++) {

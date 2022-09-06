@@ -36,11 +36,9 @@ async function goToQuiz(): Promise<void> {
   }
   result.append('quiz_id', quiz.value.id);
   result.append('total_bonus', 0);
-  await useCreateResult(result);
-  // let resultDetails = new FormData();
-  // resultDetails.append('result_id', data.data.id);
-  // resultDetails.append('question_id', quiz.value.questions[0].id);
-  // await useCreateResultDetail(resultDetails);
+  const { data } = await useCreateResult(result);
+  await store.dispatch('quiz/updateCurrentResultID', data.data.id);
+  console.log(data.data.id);
   await router.push(`/quizzes/${quiz.value.link}/play`);
 }
 </script>

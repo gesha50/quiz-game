@@ -110,6 +110,9 @@ const mutation: MutationTree<QuizStateInterface> = {
       }
     });
   },
+  updateCurrentResultID(state: QuizStateInterface, num) {
+    state.current_result_id = num;
+  },
 };
 
 export default mutation;

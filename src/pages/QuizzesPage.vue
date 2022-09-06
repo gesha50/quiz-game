@@ -25,12 +25,13 @@ import { textQuizBlock as textQuizBlockType } from '../components/quizzes/models
 import { reactive, ref } from 'vue';
 import QuizzesCard from '../components/quizzes/QuizzesCard.vue';
 import { useStore } from 'src/store';
-import { getUserQuizzes } from 'src/services/quiz/get';
+import { useGetQuizzes } from 'src/services/quiz/get';
+
 const store = useStore();
 const quizzes = ref([]);
 
 async function getQuizzes() {
-  const { data } = await getUserQuizzes();
+  const { data } = await useGetQuizzes();
   await store.dispatch('quiz/setQuizzes', data.data);
   quizzes.value = data.data;
 }

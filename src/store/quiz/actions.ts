@@ -36,6 +36,9 @@ const actions: ActionTree<QuizStateInterface, StateInterface> = {
   updateSSSource({ commit }, arr) {
     commit('updateSSSource', arr);
   },
+  updateCurrentResultID({ commit }, num) {
+    commit('updateCurrentResultID', num);
+  },
 };
 
 export default actions;

@@ -3,6 +3,7 @@ import { startScreenType } from 'pages/types';
 export interface QuizStateInterface {
   quizzes: QuizInterface[];
   results: ResultInterface[];
+  current_result_id: number | null;
 }
 
 export interface QuizInterface {
@@ -42,6 +43,7 @@ export interface AnswersInterface {
 }
 
 export interface ResultInterface {
+  id: number;
   user_id?: number | null;
   quiz_id: number;
   total_bonus: number;
@@ -62,6 +64,7 @@ function state(): QuizStateInterface {
   return {
     quizzes: [],
     results: [],
+    current_result_id: null,
   };
 }
 

@@ -54,10 +54,8 @@ module.exports = configure(function (ctx) {
       env: {
         API: ctx.dev
           ? 'http://127.0.0.1:8000/api/'
-          : 'http://185.26.120.173:7777/api-test.ru/api/',
-        URL: ctx.dev
-          ? 'http://127.0.0.1:8000'
-          : 'http://185.26.120.173:7777/api-test.ru',
+          : 'https://devozavr.ru/api/',
+        URL: ctx.dev ? 'http://127.0.0.1:8000' : 'https://devozavr.ru',
       },
       vueRouterMode: 'hash', // available values: 'hash', 'history'
 
